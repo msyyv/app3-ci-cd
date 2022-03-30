@@ -5,11 +5,11 @@ on:
     branches: [master]
 
 env:
-  PROJECT_ID: ${{secrets.GKE_PROJECT}}
+  PROJECT_ID: ${{secrets.GCP_PROJECT}}
   GKE_CLUSTER: ${{secrets.GKE_CLUSTER}}
-  GKE_PROJECT: ${{secrets.GKE_PROJECT}}
+  GKE_PROJECT: ${{secrets.GCP_PROJECT}}
   GKE_ZONE: us-central1-c
-  IMAGE: gcr.io/${{secrets.GKE_PROJECT}}/rakeshapp13
+  IMAGE: gcr.io/${{secrets.GCP_PROJECT}}/rakeshapp13
 
 jobs: 
   setup-build-publish-deploy:
