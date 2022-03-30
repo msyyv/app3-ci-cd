@@ -6,10 +6,10 @@ on:
 
 env:
   PROJECT_ID: ${{secrets.GKE_PROJECT}}
-  GKE_CLUSTER: test-cluster
+  GKE_CLUSTER: ${{secrets.GKE_CLUSTER}}
   GKE_PROJECT: ${{secrets.GKE_PROJECT}}
   GKE_ZONE: us-central1-c
-  IMAGE: gcr.io/${{secrets.GKE_PROJECT}}/flaskapp1
+  IMAGE: gcr.io/${{secrets.GKE_PROJECT}}/rakeshapp13
 
 jobs: 
   setup-build-publish-deploy:
@@ -23,15 +23,14 @@ jobs:
     - id: 'auth'
       uses: 'google-github-actions/auth@v0'
       with:
-        credentials_json: '${{secrets.GKE_SHA}}'
+        credentials_json: '${{secrets.GCP_SERVICE_ACCOUNT_KEY}}'
 
-    
 
     - name: Set up cloud SDK
       uses: google-github-actions/setup-gcloud@v0
       with:
         project_id: ${{secrets.GKE_PROJECT}}
-        servic_account_key: ${{secrets.GKE_SHA}}
+        servic_account_key: ${{secrets.GCP_SERVICE_ACCOUNT_KEY}}
         export_defaulr_credentials: true
 
     - run: |-
@@ -40,19 +39,20 @@ jobs:
     - run: |-
 
 
-        gcloud container clusters get-credentials test-cluster --zone us-central1-c --project rb-munish-playground
+        gcloud container clusters get-credentials shivam123 --zone us-central1-c --project rb-munish-playground
 
     - name: Build
       run: |-
         docker build . -t $IMAGE
-        
+        echo "Image Build Done"        
 
     - name: Publish
       run: |-
         docker push $IMAGE
-
+        echo "Image publish to docker done" 
     
 
     - name: Deploy
       run: |-
         kubectl apply -f deployment.yaml
+        echo "Application Deployment Done" 
