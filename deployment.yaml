@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp3-deployment
+spec:
+  selector:
+    matchLabels:
+      app: myapp3
+  template:
+    metadata:
+      labels:
+        app: myapp3
+    spec:
+      containers:
+      - name: rakesh-myapp3
+        image:  gcr.io/rb-munish-playground/rakeshapp13:latest
